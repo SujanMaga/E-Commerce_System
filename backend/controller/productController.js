@@ -19,3 +19,35 @@ exports.getAllProducts = async (req, res) => {
     products,
   });
 };
+
+// Update products (Admin)
+
+exports.updateProduct = async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.json({
+      success: false,
+    });
+  }
+  product = await Product.findById(req.params.id, req.body);
+  res.json({
+    sucess: true,
+    product,
+  });
+};
+
+//delete product
+
+exports.deleteProduct = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return res.json({
+      success: false,
+    });
+  }
+  await product.remove();
+  res.json({
+    success: true,
+  });
+};
