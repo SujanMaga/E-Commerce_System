@@ -12,8 +12,9 @@ exports.registerUser = async (req, res, next) => {
       url: "profilepicUrl",
     },
   });
+  const token = user.getJWTToken();
   res.json({
     success: true,
-    user,
+    token,
   });
 };
