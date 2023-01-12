@@ -1,15 +1,9 @@
-import "./App.css";
-import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+// import Home from "./pages/Home";
+import Register from "./pages/Register";
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-      </Routes>
-    </Router>
-  );
-}
+const App = () => {
+  return <Register />;
+};
 
 export default App;
