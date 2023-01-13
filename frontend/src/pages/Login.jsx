@@ -7,7 +7,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.4),
       rgba(255, 255, 255, 0.4)
     ),
-    url("https://images.pexels.com/photos/1144834/pexels-photo-1144834.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+    url("https://images.pexels.com/photos/818995/pexels-photo-818995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
       center;
   background-size: cover;
   display: flex;
@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 40%;
+  width: 25%;
   padding: 20px;
   background-color: white;
 `;
@@ -28,19 +28,14 @@ const Title = styled.h1`
 
 const Form = styled.form`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 `;
 
 const Input = styled.input`
   flex: 1;
   min-width: 40%;
-  margin: 20px 10px 0px 0px;
+  margin: 10px 0;
   padding: 10px;
-`;
-
-const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
 `;
 
 const Button = styled.button`
@@ -50,29 +45,31 @@ const Button = styled.button`
   background-color: blue;
   color: white;
   cursor: pointer;
+  margin-bottom: 10px;
 `;
 
-const Register = () => {
+const Link = styled.a`
+  margin: 5px 0px;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
           <Input placeholder="username" />
-          <Input placeholder="email" />
           <Input placeholder="password" />
-          <Input placeholder="confirm password" />
-          <Agreement>
-            By clicking Sign Up, you agree to our Terms and{" "}
-            <b>PRIVACY POLICY</b>
-          </Agreement>
-          <Button>CREATE</Button>
+          <Button>LOGIN</Button>
+          <Link>Forgotten password?</Link>
+          <Link>Create a new password</Link>
         </Form>
       </Wrapper>
     </Container>
   );
 };
 
-export default Register;
+export default Login;
