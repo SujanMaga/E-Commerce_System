@@ -40,11 +40,11 @@ const Input = styled.input`
 
 const Agreement = styled.span`
   font-size: 12px;
-  margin: 20px 0px;
+  margin: 25px 0px;
 `;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
   border: none;
   padding: 15px 20px;
   background-color: blue;
@@ -65,8 +65,8 @@ const Register = () => {
           <Input placeholder="password" />
           <Input placeholder="confirm password" />
           <Agreement>
-            By clicking Sign Up, you agree to our Terms and{" "}
-            <b>PRIVACY POLICY</b>
+            By clicking Sign Up, you agree to Terms
+            <b> PRIVACY POLICY</b>
           </Agreement>
           <Button>CREATE</Button>
         </Form>
