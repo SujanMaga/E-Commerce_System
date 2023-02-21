@@ -7,10 +7,6 @@ exports.registerUser = async (req, res, next) => {
     name,
     email,
     password,
-    avatar: {
-      public_id: "this is sample id",
-      url: "profilepicUrl",
-    },
   });
   const token = user.getJWTToken();
   res.json({

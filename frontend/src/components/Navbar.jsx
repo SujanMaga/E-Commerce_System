@@ -2,6 +2,7 @@ import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -73,8 +74,12 @@ const Navbar = () => {
           <Logo>Yukti</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <MenuItem>
+            <Link to="/register">REGISTER</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/login">SIGN IN</Link>
+          </MenuItem>
           <MenuItem>
             <Badge badgeContent={0} color="primary">
               <ShoppingCartOutlined />
