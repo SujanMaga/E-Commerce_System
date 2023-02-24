@@ -32,10 +32,12 @@
 // export default App;
 
 // testing productList design
-import ProductList from "./pages/ProductList";
+import Product from "./pages/Product";
+// import ProductList from "./pages/ProductList";
 
 const App = () => {
-  return <ProductList />;
+  // return <ProductList />;
+  return <Product />;
 };
 
 export default App;
