@@ -78,6 +78,11 @@ const Amount = styled.span`
 const Button = styled.div`
   padding: 15px;
   border: 3px solid #b7dce7;
+  cursor: pointer;
+  font-weight: 600;
+  &:hover {
+    background-color: #b7dce7;
+  }
 `;
 const Product = () => {
   return (
