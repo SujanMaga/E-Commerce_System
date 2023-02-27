@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 //Register
 router.post("/register", async (req, res) => {
@@ -33,8 +34,17 @@ router.post("/login", async (req, res) => {
       return res.status(401).json("Wrong Username");
     }
     if (bcrypt.compareSync(req.body.password, user.password)) {
+      const accessToken = jwt.sign(
+        {
+          id: user._id,
+          isAdmin: user.isAdmin,
+        },
+        process.env.JWT_SEC,
+        { expiresIn: "2d" }
+      );
       const { password, ...others } = user._doc;
-      res.status(200).json(others);
+      // ...spread operator
+      res.status(200).json({ ...others, accessToken });
     } else {
       res.status(401).json("Wrong password");
     }
