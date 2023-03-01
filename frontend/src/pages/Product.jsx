@@ -1,6 +1,8 @@
 import { Add, Remove } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -87,6 +89,8 @@ const Button = styled.div`
 const Product = () => {
   return (
     <Container>
+      <Navbar />
+
       <Wrapper>
         <ImgContainer>
           <Image src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1905&q=80" />
@@ -137,6 +141,7 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
+      <Footer />
     </Container>
   );
 };

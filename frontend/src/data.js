@@ -43,16 +43,19 @@ export const categories = [
     id: 1,
     img: Pic4,
     title: "Summer Clothes",
+    cat: "women",
   },
   {
     id: 2,
     img: Pic5,
     title: "Jeans",
+    cat: "jeans",
   },
   {
     id: 3,
     img: Pic6,
     title: "Sportswear",
+    cat: "tshirt",
   },
 ];
 
@@ -94,7 +97,7 @@ export const popularPorducts = [
     img: Pic15,
   },
   {
-    id: 6,
+    id: 10,
     img: Pic16,
   },
 ];

@@ -8,6 +8,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import Register from "./pages/Register";
+import ProductList from "./pages/ProductList";
+import Product from "./pages/Product";
 
 const App = () => {
   const user = false;
@@ -24,6 +26,9 @@ const App = () => {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         ></Route>
+        <Route path="/products/:category" element={<ProductList />}></Route>
+        <Route path="/product/:id" element={<Product />}></Route>
+        <Route path="/products" element={<ProductList />}></Route>
       </Routes>
     </Router>
   );
