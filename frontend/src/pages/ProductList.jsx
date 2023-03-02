@@ -38,22 +38,22 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
-  console.log(filters);
+  // console.log(filters);
   return (
     <Container>
       <Navbar />
-      <Title>Clothes</Title>
+      <Title>{cat}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
-            <Option>Green</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Black</Option>
-            <Option>White</Option>
-            <Option>Yellow</Option>
+            <Option>green</Option>
+            <Option>red</Option>
+            <Option>blue</Option>
+            <Option>black</Option>
+            <Option>white</Option>
+            <Option>yellow</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>Size</Option>
@@ -67,7 +67,7 @@ const ProductList = () => {
         <Filter>
           <FilterText>Sort Products:</FilterText>
           <Select onChange={(e) => setSort(e.target.value)}>
-            <Option value="summer">Summer</Option>
+            <Option value="newest">Newest</Option>
             <Option value="asc">Price (asc)</Option>
             <Option value="desc">Price (desc)</Option>
           </Select>
