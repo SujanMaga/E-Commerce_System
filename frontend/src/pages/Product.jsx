@@ -1,8 +1,10 @@
 import { Add, Remove } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { pubilicRequest } from "../requestMethods";
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -46,7 +48,7 @@ const FilterTitle = styled.span`
 `;
 const FilterColor = styled.div`
   width: 20px;
-  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
   margin: 0px 5px;
@@ -87,55 +89,69 @@ const Button = styled.div`
   }
 `;
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  // console.log(id);
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await pubilicRequest.get("/products/" + id);
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProduct();
+  }, [id]);
+  const handleQuantity = (type) => {
+    if (type === "decrease") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
   return (
     <Container>
       <Navbar />
-
       <Wrapper>
         <ImgContainer>
-          <Image src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1905&q=80" />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Woolen Clothes</Title>
-          <Desc>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem ut
-            culpa, necessitatibus placeat molestias aliquid amet cupiditate
-            eaque voluptate quos saepe perferendis praesentium excepturi iure
-            accusantium iusto quae et cum quibusdam sunt, asperiores vel?
-            Commodi vero assumenda saepe tempore ullam repellat, distinctio,
-            quis laborum consectetur amet iure illum voluptatibus dolor eum?
-            Itaque laboriosam perspiciatis consectetur expedita asperiores harum
-            eius mollitia! Ullam labore omnis unde facere aspernatur deserunt
-            delectus. Perspiciatis, itaque atque? Quaerat nostrum molestiae
-            harum omnis eos ipsam magni mollitia soluta necessitatibus eaque vel
-            commodi, ducimus doloribus maiores doloremque voluptatibus vitae
-            molestias autem sint veritatis atque recusandae provident, impedit
-            dolorum!
-          </Desc>
-          <Price>$100</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>Rs. {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="white" />
-              <FilterColor color="green" />
+              {product.color &&
+                product.color.map((c) => <FilterColor color={c} key={c} />)}
+
+              {/* <FilterColor color="yellow" /> */}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
+                {product.size &&
+                  product.size.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                {/* <FilterSizeOption>XS</FilterSizeOption> */}
+                {/* <FilterSizeOption>S</FilterSizeOption>
                 <FilterSizeOption>M</FilterSizeOption>
                 <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                <FilterSizeOption>XL</FilterSizeOption> */}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("decrease")} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("increase")} />
             </AmountContainer>
             <Button>Add to Cart</Button>
           </AddContainer>
