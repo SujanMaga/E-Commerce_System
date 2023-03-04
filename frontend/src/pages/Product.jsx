@@ -94,6 +94,8 @@ const Product = () => {
   // console.log(id);
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -113,6 +115,9 @@ const Product = () => {
       setQuantity(quantity + 1);
     }
   };
+  const handleClick = () => {
+    // Cart updating using redux
+  };
   return (
     <Container>
       <Navbar />
@@ -128,13 +133,15 @@ const Product = () => {
             <Filter>
               <FilterTitle>Color</FilterTitle>
               {product.color &&
-                product.color.map((c) => <FilterColor color={c} key={c} />)}
+                product.color.map((c) => (
+                  <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+                ))}
 
               {/* <FilterColor color="yellow" /> */}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
+              <FilterSize onChange={(e) => e.target.value}>
                 {product.size &&
                   product.size.map((s) => (
                     <FilterSizeOption key={s}>{s}</FilterSizeOption>
@@ -153,7 +160,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("increase")} />
             </AmountContainer>
-            <Button>Add to Cart</Button>
+            <Button onClick={handleClick}>Add to Cart</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
