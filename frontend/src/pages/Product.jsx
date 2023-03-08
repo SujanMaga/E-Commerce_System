@@ -4,7 +4,10 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { addProduct } from "../redux/cartRedux";
 import { pubilicRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -96,6 +99,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -117,6 +121,7 @@ const Product = () => {
   };
   const handleClick = () => {
     // Cart updating using redux
+    dispatch(addProduct({ product, quantity }));
   };
   return (
     <Container>
