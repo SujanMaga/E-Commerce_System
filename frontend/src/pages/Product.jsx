@@ -121,7 +121,10 @@ const Product = () => {
   };
   const handleClick = () => {
     // Cart updating using redux
-    dispatch(addProduct({ product, quantity }));
+    dispatch(
+      // addProduct({ product, quantity, price: product.price * quantity })
+      addProduct({ ...product, quantity, color, size })
+    );
   };
   return (
     <Container>

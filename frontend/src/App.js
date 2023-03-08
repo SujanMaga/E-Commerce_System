@@ -10,6 +10,7 @@ import {
 import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
+import Cart from "./pages/Cart";
 // import Cart from "./pages/Cart";
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/products/:category" element={<ProductList />}></Route>
         <Route path="/product/:id" element={<Product />}></Route>
         <Route path="/products" element={<ProductList />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </Router>
   );
