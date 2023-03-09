@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { addProduct } from "../redux/cartRedux";
-import { pubilicRequest } from "../requestMethods";
+import { publicRequest } from "../requestMethods";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
@@ -104,7 +104,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await pubilicRequest.get("/products/" + id);
+        const res = await publicRequest.get("/products/" + id);
         setProduct(res.data);
       } catch (error) {
         console.log(error);
