@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import axios from "axios";
+// import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -53,23 +55,42 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  // const history = useHistory();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/auth/register",
+        data
+      );
+      // console.log(response.data);
+      // history.push("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={handleSubmit}>
+          <Input placeholder="name" name="name" />
+          <Input placeholder="last name" name="lname" />
+          <Input placeholder="username" name="username" />
+          <Input placeholder="email" name="email" />
+          <Input placeholder="password" name="password" />
+          <Input placeholder="confirm password" name="c" />
           <Agreement>
             By clicking Sign Up, you agree to Terms
             <b> PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button type="submit">CREATE</Button>
         </Form>
+        
       </Wrapper>
     </Container>
   );
