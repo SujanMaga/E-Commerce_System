@@ -73,6 +73,7 @@ const Register = () => {
       console.error(error);
     }
   };
+
   return (
     <Container>
       <Wrapper>
