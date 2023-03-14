@@ -50,19 +50,22 @@ const Featuredinfo = () => {
   return (
     <Container>
       <FeaturedItem>
-        <FeaturedTitle>Revanue</FeaturedTitle>
+        <FeaturedTitle>Revenue</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>$</FeaturedMoney>
-          <FeaturedMoneyRate>%ds</FeaturedMoneyRate>
+          <FeaturedMoney>Rs. 22222</FeaturedMoney>
+          <FeaturedMoneyRate>-11.2</FeaturedMoneyRate>
+          <FeaturedIcon negative>
+            <ArrowDownward />
+          </FeaturedIcon>
         </FeaturedMoneyContainer>
         <FeaturedSub>Compared to last month</FeaturedSub>
       </FeaturedItem>
       <FeaturedItem>
         <FeaturedTitle>Sales</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>$4,415</FeaturedMoney>
+          <FeaturedMoney>Rs. 4,415</FeaturedMoney>
           <FeaturedMoneyRate>
-            -1.4{" "}
+            -1.4
             <FeaturedIcon negative>
               <ArrowDownward />
             </FeaturedIcon>
@@ -73,9 +76,9 @@ const Featuredinfo = () => {
       <FeaturedItem>
         <FeaturedTitle>Cost</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>$2,225</FeaturedMoney>
+          <FeaturedMoney>Rs. 2,225</FeaturedMoney>
           <FeaturedMoneyRate>
-            +2.4{" "}
+            +2.4
             <FeaturedIcon>
               <ArrowUpward />
             </FeaturedIcon>
