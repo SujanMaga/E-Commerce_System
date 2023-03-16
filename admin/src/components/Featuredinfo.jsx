@@ -4,6 +4,7 @@ import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 const Container = styled.div`
   width: 100%;
   display: flex;
+  flex: 4;
   justify-content: space-between;
 `;
 const FeaturedItem = styled.div`

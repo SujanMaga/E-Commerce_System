@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 const TopbarWrapper = styled.div`
   height: 100%;
-  padding: 0px 20px;
+  padding: 0px 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,6 +20,7 @@ const TopbarWrapper = styled.div`
 const TopLeft = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
 `;
 
 const Logo = styled.span`

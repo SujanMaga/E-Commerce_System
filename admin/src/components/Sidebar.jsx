@@ -20,7 +20,8 @@ const Container = styled.div`
   /* height: 100vh; */
   position: sticky;
   top: 50px;
-  background-color: rgb(219, 219, 231);
+  /* background-color: rgb(219, 219, 231); */
+  background-color: rgb(189, 228, 246);
 
   height: 100%;
 `;
@@ -49,7 +50,7 @@ const SidebarListItem = styled.li`
   cursor: pointer;
 
   &:hover {
-    background-color: #ebebeb;
+    background-color: #47c2f3;
   }
 `;
 const Sidebar = () => {
