@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
 import { userRows } from "../../testing";
+import { Link } from "react-router-dom";
+
 const Container = styled.div`
   flex: 4;
 `;
@@ -27,6 +29,11 @@ const UserListEditButton = styled.button`
   cursor: pointer;
 `;
 const UserList = () => {
+  //for functional delete (user)
+  const [data, setData] = useState(userRows);
+  const handleDelete = (id) => {
+    setData(data.filter((item) => item.id !== id));
+  };
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     {
@@ -63,9 +70,16 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <>
-            <UserListEditButton>Edit</UserListEditButton>
+            <Link to={"/user" + params.row.id}>
+              <UserListEditButton>Edit</UserListEditButton>
+            </Link>
 
-            <Delete style={{ color: "red", cursor: "pointer" }} />
+            <Delete
+              style={{ color: "red", cursor: "pointer" }}
+              onClick={() => {
+                handleDelete(params.row.id);
+              }}
+            />
           </>
         );
       },
@@ -75,7 +89,7 @@ const UserList = () => {
   return (
     <Container>
       <DataGrid
-        rows={userRows}
+        rows={data}
         columns={columns}
         pageSize={5}
         disableSelectionOnClick
