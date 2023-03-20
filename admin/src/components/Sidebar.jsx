@@ -14,6 +14,12 @@ import {
   WorkOutline,
   Report,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
 
 const Container = styled.div`
   flex: 1;
@@ -75,14 +81,18 @@ const Sidebar = () => {
           </SidebarList>
           <SidebarTitle>Quick Menu</SidebarTitle>
           <SidebarList>
-            <SidebarListItem>
-              <PermIdentity style={{ marginRight: "5px" }} />
-              Users
-            </SidebarListItem>
-            <SidebarListItem>
-              <Storefront style={{ marginRight: "5px" }} />
-              Products
-            </SidebarListItem>
+            <StyledLink to="/users">
+              <SidebarListItem>
+                <PermIdentity style={{ marginRight: "5px" }} />
+                Users
+              </SidebarListItem>
+            </StyledLink>
+            <StyledLink to="/products">
+              <SidebarListItem>
+                <Storefront style={{ marginRight: "5px" }} />
+                Products
+              </SidebarListItem>
+            </StyledLink>
             <SidebarListItem>
               <AttachMoney style={{ marginRight: "5px" }} />
               Transactions

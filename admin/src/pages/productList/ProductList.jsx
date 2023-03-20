@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
-import { userRows } from "../../testing";
+import { productRows } from "../../testing";
 import { Link } from "react-router-dom";
-
 const Container = styled.div`
   flex: 4;
 `;
-const UserListUser = styled.div`
+
+const ProductListItem = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserListImage = styled.img`
+const ProductListImage = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
 `;
-const UserListEditButton = styled.button`
+const ProductListEditButton = styled.button`
   border: none;
   border-radius: 10px;
   background-color: gray;
@@ -28,39 +28,39 @@ const UserListEditButton = styled.button`
   margin-right: 20px;
   cursor: pointer;
 `;
-const UserList = () => {
-  //for functional delete (user)
-  const [data, setData] = useState(userRows);
+
+const ProductList = () => {
+  const [data, setData] = useState(productRows);
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     {
-      field: "user",
-      headerName: "User",
+      field: "product",
+      headerName: "Product",
       width: 200,
       renderCell: (params) => {
         return (
-          <UserListUser>
-            <UserListImage
-              src={params.row.avatar}
-              alt="userProfile"
-            ></UserListImage>
-            {params.row.username}
-          </UserListUser>
+          <ProductListItem>
+            <ProductListImage
+              src={params.row.img}
+              alt="product"
+            ></ProductListImage>
+            {params.row.name}
+          </ProductListItem>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "stock", headerName: "Stock", width: 200 },
     {
       field: "status",
       headerName: "Status",
       width: 120,
     },
     {
-      field: "transaction",
-      headerName: "Transaction",
+      field: "price",
+      headerName: "Price",
       width: 160,
     },
     {
@@ -70,8 +70,8 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
-              <UserListEditButton>Edit</UserListEditButton>
+            <Link to={"/product/" + params.row.id}>
+              <ProductListEditButton>Edit</ProductListEditButton>
             </Link>
 
             <Delete
@@ -99,4 +99,5 @@ const UserList = () => {
     </Container>
   );
 };
-export default UserList;
+
+export default ProductList;

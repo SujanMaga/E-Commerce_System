@@ -46,4 +46,47 @@ const userRows = [
     transaction: "Rs.2300",
   },
 ];
-export { userRows };
+
+const productRows = [
+  {
+    id: 1,
+    name: "tshirt",
+    img: "https://images.pexels.com/photos/1188748/pexels-photo-1188748.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    stock: 12,
+    status: "active",
+    price: "Rs.1000",
+  },
+  {
+    id: 2,
+    name: "pant",
+    img: "https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    stock: 1,
+    status: "active",
+    price: "Rs.2000",
+  },
+  {
+    id: 3,
+    name: "jersey",
+    img: "https://images.pexels.com/photos/2079149/pexels-photo-2079149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    stock: 2,
+    status: "active",
+    price: "Rs.1500",
+  },
+  {
+    id: 4,
+    name: "jacket",
+    img: "https://images.pexels.com/photos/747470/pexels-photo-747470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    stock: 20,
+    status: "active",
+    price: "Rs.4000",
+  },
+  {
+    id: 5,
+    name: "shoes",
+    img: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    stock: 12,
+    status: "active",
+    price: "Rs.3000",
+  },
+];
+export { userRows, productRows };

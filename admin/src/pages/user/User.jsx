@@ -8,6 +8,8 @@ import {
   Person,
   Publish,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -22,7 +24,7 @@ const UserAddButton = styled.button`
   border: none;
   padding: 5px;
   width: 80px;
-  background-color: teal;
+  background-color: rgb(17, 155, 220);
   border-radius: 5px;
   cursor: pointer;
   color: white;
@@ -135,7 +137,7 @@ const UserUpdateButton = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px;
-  background-color: darkblue;
+  background-color: #1111d3ee;
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -147,7 +149,9 @@ const User = () => {
       {/* user info */}
       <UserTitleContainer>
         <UserTitle>Edit User</UserTitle>
-        <UserAddButton>Create</UserAddButton>
+        <Link to="/newUser">
+          <UserAddButton>Create</UserAddButton>
+        </Link>
       </UserTitleContainer>
       <UserContainer>
         <UserDisplay>
@@ -213,7 +217,7 @@ const User = () => {
               <UserUpdateItem>
                 <UserLabel>Email</UserLabel>
                 <UserUpdateInput
-                  type="text"
+                  type="email"
                   placeholder="sanilmdr33@gmail.com"
                 ></UserUpdateInput>
               </UserUpdateItem>
@@ -240,7 +244,7 @@ const User = () => {
               <UserUpdateUpload>
                 <UserUpdateImg
                   className="userUpdateImg"
-                  src="https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
                 />
                 <label htmlFor="file">
