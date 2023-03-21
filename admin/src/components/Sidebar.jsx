@@ -66,10 +66,12 @@ const Sidebar = () => {
         <SidebarMenu>
           <SidebarTitle>Dashboard</SidebarTitle>
           <SidebarList>
-            <SidebarListItem>
-              <LineStyle style={{ marginRight: "5px" }} />
-              Home
-            </SidebarListItem>
+            <StyledLink to="/">
+              <SidebarListItem>
+                <LineStyle style={{ marginRight: "5px" }} />
+                Home
+              </SidebarListItem>
+            </StyledLink>
             <SidebarListItem>
               <Timeline style={{ marginRight: "5px" }} />
               Analytics
