@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
 import { productRows } from "../../testing";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/apiCalls";
+
 const Container = styled.div`
   flex: 4;
 `;
@@ -30,12 +33,19 @@ const ProductListEditButton = styled.button`
 `;
 
 const ProductList = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
   const [data, setData] = useState(productRows);
+
+  useEffect(() => {
+    getProducts(dispatch);
+  }, [dispatch]);
+
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "_id", headerName: "ID", width: 230 },
     {
       field: "product",
       headerName: "Product",
@@ -47,17 +57,13 @@ const ProductList = () => {
               src={params.row.img}
               alt="product"
             ></ProductListImage>
-            {params.row.name}
+            {params.row.title}
           </ProductListItem>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
+    { field: "inStock", headerName: "Stock", width: 200 },
+
     {
       field: "price",
       headerName: "Price",
@@ -89,8 +95,9 @@ const ProductList = () => {
   return (
     <Container>
       <DataGrid
-        rows={data}
+        rows={products}
         columns={columns}
+        getRowId={(row) => row._id}
         pageSize={5}
         disableSelectionOnClick
         // rowsPerPageOptions={[5]}
