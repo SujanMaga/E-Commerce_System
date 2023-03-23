@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@material-ui/data-grid";
 import { Delete } from "@material-ui/icons";
-import { productRows } from "../../testing";
+// import { productRows } from "../../testing";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../redux/apiCalls";
+import { deleteProduct, getProducts } from "../../redux/apiCalls";
 
 const Container = styled.div`
   flex: 4;
@@ -35,14 +35,15 @@ const ProductListEditButton = styled.button`
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  const [data, setData] = useState(productRows);
+  // const [data, setData] = useState(productRows);
 
   useEffect(() => {
     getProducts(dispatch);
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    // setData(data.filter((item) => item.id !== id));
+    deleteProduct(id, dispatch);
   };
   const columns = [
     { field: "_id", headerName: "ID", width: 230 },
@@ -76,14 +77,14 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id}>
+            <Link to={"/product/" + params.row._id}>
               <ProductListEditButton>Edit</ProductListEditButton>
             </Link>
 
             <Delete
               style={{ color: "red", cursor: "pointer" }}
               onClick={() => {
-                handleDelete(params.row.id);
+                handleDelete(params.row._id);
               }}
             />
           </>
