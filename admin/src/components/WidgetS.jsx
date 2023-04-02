@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Visibility } from "@material-ui/icons";
+import { userRequest } from "../requestMethod";
+
 const Container = styled.div`
   flex: 1;
   flex: 1;
@@ -42,10 +44,6 @@ const WidgetSmUsername = styled.span`
   font-weight: 600;
 `;
 
-const WidgetSmUserTitle = styled.span`
-  font-weight: 300;
-`;
-
 const WidgetSmButton = styled.button`
   display: flex;
   align-items: center;
@@ -62,38 +60,43 @@ const WidgetSmIcon = styled(Visibility)`
   margin-right: 5px;
 `;
 const WidgetS = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await userRequest.get("users/?new=true");
+        setUsers(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getUsers();
+  }, []);
+
   return (
     <Container>
       <WidgetSmTitle>Newest member</WidgetSmTitle>
       <WidgetSmList>
-        <WidgetSmListItem>
-          <WidgetSmImg
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-          <WidgetSmUser>
-            <WidgetSmUsername>Sanil KC</WidgetSmUsername>
-            <WidgetSmUserTitle>Business Analyst</WidgetSmUserTitle>
-          </WidgetSmUser>
-          <WidgetSmButton>
-            <WidgetSmIcon />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
-        <WidgetSmListItem>
-          <WidgetSmImg
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-          <WidgetSmUser>
-            <WidgetSmUsername>Anil Thapa</WidgetSmUsername>
-            <WidgetSmUserTitle>MERN Developer</WidgetSmUserTitle>
-          </WidgetSmUser>
-          <WidgetSmButton>
-            <WidgetSmIcon />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
+        {users.map((user) => (
+          <WidgetSmListItem key={user.key}>
+            <WidgetSmImg
+              src={
+                user.img ||
+                "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_960_720.png"
+              }
+              alt=""
+            />
+            <WidgetSmUser>
+              <WidgetSmUsername>{user.username}</WidgetSmUsername>
+            </WidgetSmUser>
+            <WidgetSmButton>
+              <WidgetSmIcon />
+              Display
+            </WidgetSmButton>
+          </WidgetSmListItem>
+        ))}
       </WidgetSmList>
     </Container>
   );

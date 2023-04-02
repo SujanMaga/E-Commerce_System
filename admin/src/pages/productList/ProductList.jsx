@@ -9,8 +9,20 @@ import { deleteProduct, getProducts } from "../../redux/apiCalls";
 
 const Container = styled.div`
   flex: 4;
+  padding-left: 10px;
 `;
-
+const ProductAddButton = styled.button`
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: rgb(17, 155, 220);
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
 const ProductListItem = styled.div`
   display: flex;
   align-items: center;
@@ -95,11 +107,14 @@ const ProductList = () => {
 
   return (
     <Container>
+      <Link to="/newproduct">
+        <ProductAddButton>Create</ProductAddButton>
+      </Link>
       <DataGrid
         rows={products}
         columns={columns}
         getRowId={(row) => row._id}
-        pageSize={5}
+        pageSize={10}
         disableSelectionOnClick
         // rowsPerPageOptions={[5]}
         checkboxSelection

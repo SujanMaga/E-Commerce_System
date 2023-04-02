@@ -106,6 +106,7 @@ const NewProduct = () => {
             const product = { ...inputs, img: downloadURL, categories: cat };
             addProduct(product, dispatch);
           })
+
           .catch((error) => {
             console.error(error);
           });
