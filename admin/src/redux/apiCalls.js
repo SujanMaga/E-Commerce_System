@@ -12,6 +12,15 @@ import {
   deleteProductSuccess,
 } from "./productRedux";
 
+import {
+  getUserFailure,
+  getUserStart,
+  getUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+} from "./adminUserRedux";
+
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
@@ -45,7 +54,7 @@ export const getProducts = async (dispatch) => {
   }
 };
 
-//delete call
+//delete product
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
@@ -53,5 +62,28 @@ export const deleteProduct = async (id, dispatch) => {
     dispatch(deleteProductSuccess(id));
   } catch (err) {
     dispatch(deleteProductFailure());
+  }
+};
+
+// get users
+export const getUsers = async (dispatch) => {
+  dispatch(getUserStart());
+  try {
+    const res = await userRequest.get("/users");
+    // console.log(res.data);
+    dispatch(getUserSuccess(res.data));
+  } catch (err) {
+    dispatch(getUserFailure());
+  }
+};
+
+//delete user
+export const deleteUser = async (id, dispatch) => {
+  dispatch(deleteUserStart());
+  try {
+    const res = await userRequest.delete(`/users/${id}`);
+    dispatch(deleteUserSuccess(id));
+  } catch (err) {
+    dispatch(deleteUserFailure());
   }
 };

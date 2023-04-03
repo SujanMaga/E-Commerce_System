@@ -28,7 +28,6 @@ const Container = styled.div`
   top: 50px;
   /* background-color: rgb(219, 219, 231); */
   background-color: rgb(189, 228, 246);
-
   height: 100%;
 `;
 const Wrapper = styled.div`

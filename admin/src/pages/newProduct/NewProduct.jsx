@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   getStorage,
@@ -48,11 +49,14 @@ const AddProductButton = styled.button`
 `;
 
 const NewProduct = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // handle state for input ,file and categories
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState([]);
+  const [size, setSize] = useState([]);
+  const [color, setColor] = useState([]);
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -61,6 +65,12 @@ const NewProduct = () => {
   };
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
+  };
+  const handleSize = (e) => {
+    setSize(e.target.value.split(","));
+  };
+  const handleColor = (e) => {
+    setColor(e.target.value.split(","));
   };
   // console.log(input);
 
@@ -103,8 +113,15 @@ const NewProduct = () => {
         getDownloadURL(uploadTask.snapshot.ref)
           .then((downloadURL) => {
             console.log("File available at", downloadURL);
-            const product = { ...inputs, img: downloadURL, categories: cat };
+            const product = {
+              ...inputs,
+              img: downloadURL,
+              categories: cat,
+              size: size,
+              color: color,
+            };
             addProduct(product, dispatch);
+            navigate("/products");
           })
 
           .catch((error) => {
@@ -156,9 +173,25 @@ const NewProduct = () => {
         <AddProductItem>
           <Label>Categories</Label>
           <Input
-            type="cat"
+            type="text"
             placeholder="tshirt,jersey"
             onChange={handleCat}
+          ></Input>
+        </AddProductItem>
+        <AddProductItem>
+          <Label>Size</Label>
+          <Input
+            type="text"
+            placeholder="XS,S,M,X,XL"
+            onChange={handleSize}
+          ></Input>
+        </AddProductItem>
+        <AddProductItem>
+          <Label>Color</Label>
+          <Input
+            type="text"
+            placeholder="red,blue"
+            onChange={handleColor}
           ></Input>
         </AddProductItem>
         <AddProductItem>
@@ -168,6 +201,7 @@ const NewProduct = () => {
             <Option value="false">No</Option>
           </Select>
         </AddProductItem>
+
         <AddProductButton onClick={handleClick}>Create</AddProductButton>
       </AddProductForm>
     </Container>

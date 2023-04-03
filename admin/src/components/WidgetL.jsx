@@ -5,7 +5,7 @@ const Container = styled.div`
 `;
 
 const WidgetL = () => {
-  return <Container>large</Container>;
+  return <Container></Container>;
 };
 
 export default WidgetL;
