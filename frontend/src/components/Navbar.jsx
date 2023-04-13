@@ -2,8 +2,9 @@ import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../redux/userRedux";
+import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -62,10 +63,17 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
   // const cart = useSelector((state) => state.cart);
   // console.log(cart);
   const quantity = useSelector((state) => state.cart.quantity);
   // console.log(quantity);
+  const handleLogOutClick = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <Container>
       <Wrapper>
@@ -80,12 +88,18 @@ const Navbar = () => {
           <Logo>Yukti</Logo>
         </Center>
         <Right>
-          <MenuItem>
-            <Link to="/register">REGISTER</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/login">SIGN IN</Link>
-          </MenuItem>
+          {user ? (
+            <MenuItem onClick={handleLogOutClick}>LOGOUT</MenuItem>
+          ) : (
+            <>
+              <MenuItem>
+                <Link to="/register">REGISTER</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/login">SIGN IN</Link>
+              </MenuItem>
+            </>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
