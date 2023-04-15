@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 // import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -56,6 +57,7 @@ const Button = styled.button`
 
 const Register = () => {
   // const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,6 +69,7 @@ const Register = () => {
         "http://localhost:5000/api/v1/auth/register",
         data
       );
+      navigate("/login");
       // console.log(response.data);
       // history.push("/login");
     } catch (error) {
@@ -79,19 +82,18 @@ const Register = () => {
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form onSubmit={handleSubmit}>
-          <Input placeholder="name" name="name" />
-          <Input placeholder="last name" name="lname" />
-          <Input placeholder="username" name="username" />
-          <Input placeholder="email" name="email" />
-          <Input placeholder="password" name="password" />
-          <Input placeholder="confirm password" name="c" />
+          <Input type="text" placeholder="username" name="username" />
+          <Input type="email" placeholder="email" name="email" />
+          <Input type="text" placeholder="phone" name="phone" />
+          <Input type="text" placeholder="address" name="address" />
+          <Input type="password" placeholder="password" name="password" />
+          <Input type="password" placeholder="confirm password" name="c" />
           <Agreement>
             By clicking Sign Up, you agree to Terms
             <b> PRIVACY POLICY</b>
           </Agreement>
           <Button type="submit">CREATE</Button>
         </Form>
-        
       </Wrapper>
     </Container>
   );

@@ -1,14 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  CalendarToday,
-  Email,
-  Home,
-  LocalPhone,
-  Person,
-  Publish,
-} from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Email, Home, LocalPhone, Person, Publish } from "@material-ui/icons";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import { updateUser } from "../../redux/apiCalls";
 
 const Container = styled.div`
   flex: 4;
@@ -53,9 +48,6 @@ const UserDisplayTopTitle = styled.div`
 `;
 const UserDisplayUsername = styled.span`
   font-weight: 600;
-`;
-const UserDisplayUserTitle = styled.span`
-  font-weight: 300;
 `;
 const UserDisplayImage = styled.img`
   width: 40px;
@@ -144,6 +136,17 @@ const UserUpdateButton = styled.button`
 `;
 
 const User = () => {
+  // const dispatch = useDispatch();
+  const location = useLocation();
+  const userId = location.pathname.split("/")[2];
+  const user = useSelector((state) =>
+    state.adminUser.users.find((user) => user._id === userId)
+  );
+
+  const handleEdit = (id, user) => {
+    // updateUser(id, product, dispatch);
+  };
+  // console.log(product);
   return (
     <Container>
       {/* user info */}
@@ -156,40 +159,30 @@ const User = () => {
       <UserContainer>
         <UserDisplay>
           <UserDisplayTop>
-            <UserDisplayImage
-              alt=""
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            ></UserDisplayImage>
+            <UserDisplayImage alt="" src={user.img}></UserDisplayImage>
             <UserDisplayTopTitle>
-              <UserDisplayUsername>Sanil Manandhar</UserDisplayUsername>
-              <UserDisplayUserTitle>Developer</UserDisplayUserTitle>
+              <UserDisplayUsername>{user.username}</UserDisplayUsername>
             </UserDisplayTopTitle>
           </UserDisplayTop>
           <UserDisplayButton>
             <UserDisplayTitle>Account Detail</UserDisplayTitle>
             <UserDisplayInfo>
               <Person />
-              <UserDisplayInputTitle>sanilmdr33</UserDisplayInputTitle>
+              <UserDisplayInputTitle>{user.username}</UserDisplayInputTitle>
             </UserDisplayInfo>
-            <UserDisplayInfo>
-              <CalendarToday />
 
-              <UserDisplayInputTitle>12-2-2000</UserDisplayInputTitle>
-            </UserDisplayInfo>
             <UserDisplayTitle>Contact Detail</UserDisplayTitle>
             <UserDisplayInfo>
               <LocalPhone />
-              <UserDisplayInputTitle>92828282</UserDisplayInputTitle>
+              <UserDisplayInputTitle>{user.phone}</UserDisplayInputTitle>
             </UserDisplayInfo>
             <UserDisplayInfo>
               <Email />
-              <UserDisplayInputTitle>
-                sanilmdr33@gmail.com
-              </UserDisplayInputTitle>
+              <UserDisplayInputTitle>{user.email}</UserDisplayInputTitle>
             </UserDisplayInfo>
             <UserDisplayInfo>
               <Home />
-              <UserDisplayInputTitle>Kathmandu,Nepal</UserDisplayInputTitle>
+              <UserDisplayInputTitle>{user.address}</UserDisplayInputTitle>
             </UserDisplayInfo>
           </UserDisplayButton>
         </UserDisplay>
@@ -202,15 +195,7 @@ const User = () => {
                 <UserLabel>Username</UserLabel>
                 <UserUpdateInput
                   type="text"
-                  placeholder="sanilmdr33"
-                ></UserUpdateInput>
-              </UserUpdateItem>
-
-              <UserUpdateItem>
-                <UserLabel>Full Name</UserLabel>
-                <UserUpdateInput
-                  type="text"
-                  placeholder="sanil manandhar"
+                  placeholder={user.username}
                 ></UserUpdateInput>
               </UserUpdateItem>
 
@@ -218,7 +203,7 @@ const User = () => {
                 <UserLabel>Email</UserLabel>
                 <UserUpdateInput
                   type="email"
-                  placeholder="sanilmdr33@gmail.com"
+                  placeholder={user.email}
                 ></UserUpdateInput>
               </UserUpdateItem>
 
@@ -226,7 +211,7 @@ const User = () => {
                 <UserLabel>Phone</UserLabel>
                 <UserUpdateInput
                   type="text"
-                  placeholder="92828282"
+                  placeholder={user.phone}
                 ></UserUpdateInput>
               </UserUpdateItem>
 
@@ -234,7 +219,7 @@ const User = () => {
                 <UserLabel>Address</UserLabel>
                 <UserUpdateInput
                   type="text"
-                  placeholder="Kathmandu,Nepal"
+                  placeholder={user.address}
                 ></UserUpdateInput>
               </UserUpdateItem>
             </UserUpdateLeft>
@@ -244,7 +229,7 @@ const User = () => {
               <UserUpdateUpload>
                 <UserUpdateImg
                   className="userUpdateImg"
-                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src={user.img}
                   alt=""
                 />
                 <label htmlFor="file">
@@ -252,7 +237,13 @@ const User = () => {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </UserUpdateUpload>
-              <UserUpdateButton>Update</UserUpdateButton>
+              <UserUpdateButton
+                onClick={() => {
+                  handleEdit(user._id, user);
+                }}
+              >
+                Update
+              </UserUpdateButton>
             </UserUpdateRight>
           </UserUpdateForm>
         </UserUpdate>

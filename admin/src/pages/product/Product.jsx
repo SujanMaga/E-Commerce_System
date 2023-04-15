@@ -1,7 +1,9 @@
 import { Publish } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
-
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProduct } from "../../redux/apiCalls";
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -104,30 +106,37 @@ const ProductButton = styled.button`
   cursor: pointer;
 `;
 const Product = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === productId)
+  );
+
+  const handleEdit = (id, product) => {
+    updateProduct(id, product, dispatch);
+  };
+  // console.log(product);
   return (
     <Container>
       <ProductTitle>Product</ProductTitle>
       <ProductTop>
         <ProductInfoTop>
-          <ProductImage src="https://firebasestorage.googleapis.com/v0/b/yukti-e8bd7.appspot.com/o/1680433510014pic10.png?alt=media&token=d5eab40d-a521-4b10-b59d-49857198a87f"></ProductImage>
-          <ProductName>Black Sweatshirt</ProductName>
+          <ProductImage src={product.img}></ProductImage>
+          <ProductName>{product.title}</ProductName>
         </ProductInfoTop>
         <ProductInfoBottom>
           <ProductInfoItem>
             <ProductInfoKey>id:</ProductInfoKey>
-            <ProductInfoValue>38972932</ProductInfoValue>
+            <ProductInfoValue>{product._id}</ProductInfoValue>
           </ProductInfoItem>
           <ProductInfoItem>
             <ProductInfoKey>sales:</ProductInfoKey>
             <ProductInfoValue>2323</ProductInfoValue>
           </ProductInfoItem>
           <ProductInfoItem>
-            <ProductInfoKey>active:</ProductInfoKey>
-            <ProductInfoValue>true</ProductInfoValue>
-          </ProductInfoItem>
-          <ProductInfoItem>
             <ProductInfoKey>in stock:</ProductInfoKey>
-            <ProductInfoValue>yes</ProductInfoValue>
+            <ProductInfoValue>{product.inStock}</ProductInfoValue>
           </ProductInfoItem>
         </ProductInfoBottom>
       </ProductTop>
@@ -136,17 +145,17 @@ const Product = () => {
         <ProductForm>
           <ProductFormLeft>
             <Label>Product Name</Label>
-            <Input type="text" placeholder="black sweatshirt" />
+            <Input type="text" placeholder={product.title} />
             <Label>Product Description</Label>
-            <Input type="text" placeholder="Best sweatshirt in town" />
+            <Input type="text" placeholder={product.desc} />
             <Label>Price</Label>
-            <Input type="text" placeholder="2000" />
+            <Input type="text" placeholder={product.price} />
             <Label>Product Categories</Label>
-            <Input type="text" placeholder="men" />
+            <Input type="text" placeholder={product.categories} />
             <Label>Product Color</Label>
-            <Input type="text" placeholder="red" />
+            <Input type="text" placeholder={product.color} />
             <Label>Product Size</Label>
-            <Input type="text" placeholder="S" />
+            <Input type="text" placeholder={product.size} />
             <Label>In Stock</Label>
             <Select name="inStock" id="inStock">
               <option value="true">Yes</option>
@@ -155,16 +164,19 @@ const Product = () => {
           </ProductFormLeft>
           <ProductFormRight>
             <ProductUpload>
-              <ProductUploadImg
-                src="https://firebasestorage.googleapis.com/v0/b/yukti-e8bd7.appspot.com/o/1680433510014pic10.png?alt=media&token=d5eab40d-a521-4b10-b59d-49857198a87f"
-                alt=""
-              />
+              <ProductUploadImg src={product.img} alt="" />
               <Label htmlFor="file">
                 <Publish />
               </Label>
               <Input type="file" id="file" style={{ display: "none" }} />
             </ProductUpload>
-            <ProductButton>Update</ProductButton>
+            <ProductButton
+              onClick={() => {
+                handleEdit(product._id, product);
+              }}
+            >
+              Update
+            </ProductButton>
           </ProductFormRight>
         </ProductForm>
       </ProductBottom>

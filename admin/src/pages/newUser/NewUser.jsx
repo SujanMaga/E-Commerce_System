@@ -38,20 +38,6 @@ const NewUserFormItemInput = styled.input`
   border-radius: 5px;
 `;
 
-const NewUserGender = styled.div`
-  margin-top: 10px;
-`;
-
-const NewUserGenderLabel = styled.label`
-  margin: 10px;
-  font-size: 18px;
-  color: #555;
-`;
-
-const NewUserGenderInput = styled.input`
-  margin-top: 15px;
-`;
-
 const NewUserButton = styled.button`
   width: 200px;
   border: none;
@@ -74,10 +60,6 @@ export default function NewUser() {
           <NewUserFormItemInput type="text" placeholder="Sanil" />
         </NewUserFormItem>
         <NewUserFormItem>
-          <NewUserFormItemLabel>Full Name</NewUserFormItemLabel>
-          <NewUserFormItemInput type="text" placeholder="Sanil Manandhar" />
-        </NewUserFormItem>
-        <NewUserFormItem>
           <NewUserFormItemLabel>Email</NewUserFormItemLabel>
           <NewUserFormItemInput type="email" placeholder="Sanil@gmail.com" />
         </NewUserFormItem>
@@ -93,25 +75,7 @@ export default function NewUser() {
           <NewUserFormItemLabel>Address</NewUserFormItemLabel>
           <NewUserFormItemInput type="text" placeholder="Kathmandu, Nepal" />
         </NewUserFormItem>
-        <NewUserFormItem>
-          <NewUserFormItemLabel>Gender</NewUserFormItemLabel>
-          <NewUserGender>
-            <NewUserGenderInput
-              type="radio"
-              name="gender"
-              id="male"
-              value="male"
-            />
-            <NewUserGenderLabel htmlFor="male">Male</NewUserGenderLabel>
-            <NewUserGenderInput
-              type="radio"
-              name="gender"
-              id="female"
-              value="female"
-            />
-            <NewUserGenderLabel htmlFor="female">Female</NewUserGenderLabel>
-          </NewUserGender>
-        </NewUserFormItem>
+
         <NewUserButton>Create</NewUserButton>
       </NewUserForm>
     </Container>

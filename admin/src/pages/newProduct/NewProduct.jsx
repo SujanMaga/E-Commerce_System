@@ -72,7 +72,10 @@ const NewProduct = () => {
   const handleColor = (e) => {
     setColor(e.target.value.split(","));
   };
-  // console.log(input);
+  // console.log(inputs);
+  // console.log(cat);
+  // console.log(size);
+  // console.log(color);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -130,7 +133,7 @@ const NewProduct = () => {
       }
     );
   };
-  console.log(file);
+  // console.log(file);
   return (
     <Container>
       <AddProductTitle>New Product</AddProductTitle>

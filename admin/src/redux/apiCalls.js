@@ -10,9 +10,15 @@ import {
   deleteProductFailure,
   deleteProductStart,
   deleteProductSuccess,
+  updateProductStart,
+  updateProductSuccess,
+  updateProductFailure,
 } from "./productRedux";
 
 import {
+  addUserStart,
+  addUserSuccess,
+  addUserFailure,
   getUserFailure,
   getUserStart,
   getUserSuccess,
@@ -65,6 +71,16 @@ export const deleteProduct = async (id, dispatch) => {
   }
 };
 
+// update product
+export const updateProduct = async (id, product, dispatch) => {
+  dispatch(updateProductStart());
+  try {
+    dispatch(updateProductSuccess({ id, product }));
+  } catch (err) {
+    dispatch(updateProductFailure());
+  }
+};
+
 // get users
 export const getUsers = async (dispatch) => {
   dispatch(getUserStart());
@@ -85,5 +101,16 @@ export const deleteUser = async (id, dispatch) => {
     dispatch(deleteUserSuccess(id));
   } catch (err) {
     dispatch(deleteUserFailure());
+  }
+};
+
+// create Users
+export const addUser = async (user, dispatch) => {
+  dispatch(addUserStart());
+  try {
+    const res = await userRequest.post(`/users`, user);
+    dispatch(addUserSuccess(res.data));
+  } catch (err) {
+    dispatch(addUserFailure());
   }
 };
