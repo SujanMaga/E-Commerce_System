@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:5000/api/v1";
 const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmNkY2JhMDkxYWZmNGRmYjgwYjRkNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MTQ2NDQwNCwiZXhwIjoxNjgxNjM3MjA0fQ.zPIuyAcxYnhJq3OBa8NpbNoUFZuly4FHwiVFFsa7SUo";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmNkY2JhMDkxYWZmNGRmYjgwYjRkNyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MTY5NTcyOCwiZXhwIjoxNjgxODY4NTI4fQ.JFZ2vrygk-85gIdiFyAiROwS4toTMNkaYYIMgMdK6hM";
 // console.log(
 //   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
 //     .accessToken

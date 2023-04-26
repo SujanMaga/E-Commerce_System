@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
     });
   }
 
-  console.log(data);
+  // console.log(data);
 });
 
 //Login

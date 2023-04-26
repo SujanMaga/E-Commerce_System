@@ -142,7 +142,6 @@ const User = () => {
   const user = useSelector((state) =>
     state.adminUser.users.find((user) => user._id === userId)
   );
-
   const handleEdit = (id, user) => {
     // updateUser(id, product, dispatch);
   };

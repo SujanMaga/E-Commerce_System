@@ -114,7 +114,7 @@ const ProductList = () => {
         rows={products}
         columns={columns}
         getRowId={(row) => row._id}
-        pageSize={10}
+        pageSize={14}
         disableSelectionOnClick
         // rowsPerPageOptions={[5]}
         checkboxSelection
