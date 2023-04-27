@@ -1,10 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { userRequest } from "../requestMethods";
+const PublicKey =
+  "pk_test_51N1Bo5An34WkQpYJGn74htIwaAOKPp2zSobKFwshyG6swnpgC4pxmGaaXwBYsptaJPskNXKJ6SgcAfGSTYsHYb8z00o47lmwC1";
 
 const Container = styled.div`
   padding: 20px;
@@ -132,6 +136,30 @@ const Button = styled.button`
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const [stripeToken, setStripeToken] = useState(null);
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100,
+        });
+        navigate("/success", { state: { data: res.data } });
+
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    // if there is stripe token
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, navigate]);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  // console.log(stripeToken);
   return (
     <Container>
       <Navbar />
@@ -200,7 +228,19 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>Rs.{cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+
+            <StripeCheckout
+              name="Yukti Shop"
+              image="https://firebasestorage.googleapis.com/v0/b/yukti-e8bd7.appspot.com/o/2079353.jpg?alt=media&token=490a5b70-3ec3-4625-8260-6e3d1a14b727"
+              billingAddress
+              shippingAddress
+              description={`Your Total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={PublicKey}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

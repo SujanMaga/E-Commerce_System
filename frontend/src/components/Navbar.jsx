@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/userRedux";
 import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -72,6 +73,7 @@ const Navbar = () => {
   // console.log(quantity);
   const handleLogOutClick = () => {
     dispatch(logout());
+    dispatch(clearCart());
     navigate("/");
   };
   return (
