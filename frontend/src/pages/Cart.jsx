@@ -145,16 +145,16 @@ const Cart = () => {
           tokenId: stripeToken.id,
           amount: cart.total * 100,
         });
-        navigate("/success", { state: { data: res.data } });
-
-        console.log(res.data);
+        navigate("/success", {
+          state: { products: cart, stripeData: res.data },
+        });
       } catch (err) {
         console.log(err);
       }
     };
     // if there is stripe token
     stripeToken && makeRequest();
-  }, [stripeToken, cart.total, navigate]);
+  }, [stripeToken, cart.total, navigate, cart]);
 
   const onToken = (token) => {
     setStripeToken(token);
