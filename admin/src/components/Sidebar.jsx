@@ -13,6 +13,7 @@ import {
   ChatBubbleOutline,
   WorkOutline,
   Report,
+  NotesOutlined,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -94,10 +95,14 @@ const Sidebar = () => {
                 Products
               </SidebarListItem>
             </StyledLink>
-            <SidebarListItem>
-              <AttachMoney style={{ marginRight: "5px" }} />
-              Transactions
-            </SidebarListItem>
+
+            <StyledLink to="/orders">
+              <SidebarListItem>
+                <NotesOutlined style={{ marginRight: "5px" }} />
+                Orders
+              </SidebarListItem>
+            </StyledLink>
+
             <SidebarListItem>
               <BarChart style={{ marginRight: "5px" }} />
               Reports

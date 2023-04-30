@@ -203,7 +203,7 @@ const Cart = () => {
                     <Remove />
                   </ProductAmountContainer>
                   <ProductPrice>
-                    Rs. {product.price * product.quantity}
+                    ${product.price * product.quantity}
                   </ProductPrice>
                 </PriceDetail>
               </Product>
@@ -214,19 +214,19 @@ const Cart = () => {
             <SummaryTitle>Order Summary </SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>Rs.{cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>Rs.100</SummaryItemPrice>
+              <SummaryItemPrice>$100</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>Rs.-100</SummaryItemPrice>
+              <SummaryItemPrice>$-100</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>Rs.{cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
 
             <StripeCheckout

@@ -27,6 +27,15 @@ import {
   deleteUserSuccess,
 } from "./adminUserRedux";
 
+import {
+  getOrderStart,
+  getOrderSuccess,
+  getOrderFailure,
+  deleteOrderStart,
+  deleteOrderSuccess,
+  deleteOrderFailure,
+} from "./orderRedux";
+
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
@@ -112,5 +121,28 @@ export const addUser = async (user, dispatch) => {
     dispatch(addUserSuccess(res.data));
   } catch (err) {
     dispatch(addUserFailure());
+  }
+};
+
+// get orders
+export const getOrders = async (dispatch) => {
+  dispatch(getOrderStart());
+  try {
+    const res = await userRequest.get("/orders");
+    // console.log(res.data);
+    dispatch(getOrderSuccess(res.data));
+  } catch (err) {
+    dispatch(getOrderFailure());
+  }
+};
+
+//delete order
+export const deleteOrder = async (id, dispatch) => {
+  dispatch(deleteOrderStart());
+  try {
+    const res = await userRequest.delete(`/orders/${id}`);
+    dispatch(deleteOrderSuccess(id));
+  } catch (err) {
+    dispatch(deleteOrderFailure());
   }
 };

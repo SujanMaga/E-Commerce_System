@@ -53,7 +53,7 @@ const Featuredinfo = () => {
       <FeaturedItem>
         <FeaturedTitle>Revenue</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 22222</FeaturedMoney>
+          <FeaturedMoney>$ 22222</FeaturedMoney>
           <FeaturedMoneyRate>-11.2</FeaturedMoneyRate>
           <FeaturedIcon negative>
             <ArrowDownward />
@@ -64,7 +64,7 @@ const Featuredinfo = () => {
       <FeaturedItem>
         <FeaturedTitle>Sales</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 4,415</FeaturedMoney>
+          <FeaturedMoney>$ 4,415</FeaturedMoney>
           <FeaturedMoneyRate>
             -1.4
             <FeaturedIcon negative>
@@ -77,7 +77,7 @@ const Featuredinfo = () => {
       <FeaturedItem>
         <FeaturedTitle>Cost</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 2,225</FeaturedMoney>
+          <FeaturedMoney>$ 2,225</FeaturedMoney>
           <FeaturedMoneyRate>
             +2.4
             <FeaturedIcon>

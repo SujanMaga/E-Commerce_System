@@ -16,6 +16,7 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
+import OrderList from "./pages/orderList/OrderList";
 // import { useSelector } from "react-redux";
 function App() {
   const admin = useSelector((state) => state.user.currentUser);
@@ -43,6 +44,7 @@ function App() {
           <Route path="/products" element={<ProductList />} />
           <Route path="/product/:productId" element={<Product />} />
           <Route path="/newProduct" element={<NewProduct />} />
+          <Route path="/orders" element={<OrderList />} />
         </Routes>
       </div>
     </Router>
