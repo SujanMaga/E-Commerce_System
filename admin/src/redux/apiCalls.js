@@ -34,6 +34,9 @@ import {
   deleteOrderStart,
   deleteOrderSuccess,
   deleteOrderFailure,
+  updateOrderStart,
+  updateOrderSuccess,
+  updateOrderFailure,
 } from "./orderRedux";
 
 export const login = async (dispatch, user) => {
@@ -144,5 +147,15 @@ export const deleteOrder = async (id, dispatch) => {
     dispatch(deleteOrderSuccess(id));
   } catch (err) {
     dispatch(deleteOrderFailure());
+  }
+};
+// update order
+export const updateOrder = async (id, updatedOrder, dispatch) => {
+  dispatch(updateOrderStart());
+  try {
+    const res = await userRequest.put(`/orders/${id}`, updatedOrder);
+    dispatch(updateOrderSuccess({ id, order: res.data }));
+  } catch (err) {
+    dispatch(updateOrderFailure());
   }
 };

@@ -94,9 +94,8 @@ const Login = () => {
           <Button onClick={handleClick} disabled={isFetching}>
             LOGIN
           </Button>
-          {error && <Error>Something's wrong</Error>}
+          {error && <Error>Incorrect Password</Error>}
           <Link>Forgotten password?</Link>
-          <Link>Create a new password</Link>
         </Form>
       </Wrapper>
     </Container>
