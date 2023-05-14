@@ -1,12 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { userRequest } from "../requestMethods";
+import { Link } from "react-router-dom";
+import { getOrderById } from "../redux/apiCalls";
 const PublicKey =
   "pk_test_51N1Bo5An34WkQpYJGn74htIwaAOKPp2zSobKFwshyG6swnpgC4pxmGaaXwBYsptaJPskNXKJ6SgcAfGSTYsHYb8z00o47lmwC1";
 
@@ -134,6 +136,16 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  // for order
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.currentUser._id);
+  console.log(userId);
+  const handleClick = (e) => {
+    e.preventDefault();
+    getOrderById(dispatch, userId);
+    navigate("/orders");
+  };
+  // for cart
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [stripeToken, setStripeToken] = useState(null);
@@ -168,8 +180,8 @@ const Cart = () => {
         <Top>
           <TopButton>Continue Shopping</TopButton>
           <TopTexts>
-            <TopText>Shopping Cart(2)</TopText>
-            <TopText>Your WishList(0)</TopText>
+            <TopText>Shopping Cart</TopText>
+            <TopText onClick={handleClick}>Your Order</TopText>
           </TopTexts>
           <TopButton type="filled">Checkout Now</TopButton>
         </Top>
