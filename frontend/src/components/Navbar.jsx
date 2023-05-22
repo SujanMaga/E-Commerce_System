@@ -30,14 +30,6 @@ const Language = styled.span`
   cursor: pointer;
 `;
 
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-`;
-
 const Input = styled.input`
   border: none;
 `;
@@ -49,6 +41,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
+  cursor: pointer;
 `;
 const Right = styled.div`
   flex: 1;
@@ -59,8 +52,14 @@ const Right = styled.div`
 
 const MenuItem = styled.div`
   font-size: 14px;
+  text-decoration: none;
   cursor: pointer;
   margin-left: 25px;
+`;
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
 `;
 
 const Navbar = () => {
@@ -70,10 +69,15 @@ const Navbar = () => {
   // const cart = useSelector((state) => state.cart);
   // console.log(cart);
   const quantity = useSelector((state) => state.cart.quantity);
+
+  const displayedQuantity = quantity >= 0 ? quantity : 0;
   // console.log(quantity);
   const handleLogOutClick = () => {
     dispatch(logout());
     dispatch(clearCart());
+    navigate("/");
+  };
+  const handleClick = () => {
     navigate("/");
   };
   return (
@@ -81,13 +85,9 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
         </Left>
         <Center>
-          <Logo>Yukti</Logo>
+          <Logo onClick={handleClick}>Yukti</Logo>
         </Center>
         <Right>
           {user ? (
@@ -95,16 +95,16 @@ const Navbar = () => {
           ) : (
             <>
               <MenuItem>
-                <Link to="/register">REGISTER</Link>
+                <StyledLink to="/register">REGISTER</StyledLink>
               </MenuItem>
               <MenuItem>
-                <Link to="/login">SIGN IN</Link>
+                <StyledLink to="/login">SIGN IN</StyledLink>
               </MenuItem>
             </>
           )}
           <Link to="/cart">
             <MenuItem>
-              <Badge badgeContent={quantity} color="primary">
+              <Badge badgeContent={displayedQuantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItem>

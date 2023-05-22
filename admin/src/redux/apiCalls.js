@@ -87,7 +87,8 @@ export const deleteProduct = async (id, dispatch) => {
 export const updateProduct = async (id, product, dispatch) => {
   dispatch(updateProductStart());
   try {
-    dispatch(updateProductSuccess({ id, product }));
+    const response = userRequest.put(`/api/v1/products/${id}`, product);
+    dispatch(updateProductSuccess(response.data));
   } catch (err) {
     dispatch(updateProductFailure());
   }

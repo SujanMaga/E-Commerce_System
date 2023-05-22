@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 const Container = styled.div`
   width: 100%;
   height: 50px;
@@ -32,28 +31,7 @@ const Logo = styled.span`
 const TopRight = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const TopbarIconContainer = styled.div`
-  position: relative;
-  cursor: pointer;
-  margin-right: 10px;
-  color: #555;
-`;
-
-const TopIconBadge = styled.span`
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  top: -5px;
-  right: 0px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
+  margin-right: 15px;
 `;
 
 const TopAvatar = styled.img`
@@ -71,17 +49,6 @@ const Topbar = () => {
           <Logo>Admin</Logo>
         </TopLeft>
         <TopRight>
-          <TopbarIconContainer>
-            <NotificationsNone />
-            <TopIconBadge>2</TopIconBadge>
-          </TopbarIconContainer>
-          <TopbarIconContainer>
-            <Language />
-            <TopIconBadge>2</TopIconBadge>
-          </TopbarIconContainer>
-          <TopbarIconContainer>
-            <Settings />
-          </TopbarIconContainer>
           <TopAvatar src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
         </TopRight>
       </TopbarWrapper>

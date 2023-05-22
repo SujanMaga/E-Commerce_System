@@ -1,9 +1,11 @@
 import { Publish } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProduct } from "../../redux/apiCalls";
+import Swal from "sweetalert2";
+
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -106,6 +108,7 @@ const ProductButton = styled.button`
   cursor: pointer;
 `;
 const Product = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
@@ -113,16 +116,40 @@ const Product = () => {
     state.product.products.find((product) => product._id === productId)
   );
 
-  const handleEdit = (id, product) => {
-    updateProduct(id, product, dispatch);
+  const [updatedProduct, setUpdatedProduct] = useState({
+    title: product.title,
+    desc: product.desc,
+    price: product.price,
+    categories: product.categories,
+    color: product.color,
+    size: product.size,
+    inStock: product.inStock,
+  });
+
+  const handleEdit = async (id, product) => {
+    try {
+      await updateProduct(id, product, dispatch);
+      Swal.fire("Success", "Product updated successfully", "success");
+      navigate("/products");
+    } catch (error) {
+      Swal.fire("Error", "Failed to update product", "error");
+    }
   };
-  // console.log(product);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUpdatedProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
+
   return (
     <Container>
       <ProductTitle>Product</ProductTitle>
       <ProductTop>
         <ProductInfoTop>
-          <ProductImage src={product.img}></ProductImage>
+          <ProductImage src={product.img} alt="product" />
           <ProductName>{product.title}</ProductName>
         </ProductInfoTop>
         <ProductInfoBottom>
@@ -142,24 +169,59 @@ const Product = () => {
       </ProductTop>
 
       <ProductBottom>
-        <ProductForm>
+        <ProductForm onSubmit={handleEdit}>
           <ProductFormLeft>
             <Label>Product Name</Label>
-            <Input type="text" placeholder={product.title} />
+            <Input
+              type="text"
+              name="title"
+              value={updatedProduct.title}
+              onChange={handleChange}
+            />
             <Label>Product Description</Label>
-            <Input type="text" placeholder={product.desc} />
+            <Input
+              type="text"
+              name="desc"
+              value={updatedProduct.desc}
+              onChange={handleChange}
+            />
             <Label>Price</Label>
-            <Input type="text" placeholder={product.price} />
+            <Input
+              type="text"
+              name="price"
+              value={updatedProduct.price}
+              onChange={handleChange}
+            />
             <Label>Product Categories</Label>
-            <Input type="text" placeholder={product.categories} />
+            <Input
+              type="text"
+              name="categories"
+              value={updatedProduct.categories}
+              onChange={handleChange}
+            />
             <Label>Product Color</Label>
-            <Input type="text" placeholder={product.color} />
+            <Input
+              type="text"
+              name="color"
+              value={updatedProduct.color}
+              onChange={handleChange}
+            />
             <Label>Product Size</Label>
-            <Input type="text" placeholder={product.size} />
+            <Input
+              type="text"
+              name="size"
+              value={updatedProduct.size}
+              onChange={handleChange}
+            />
             <Label>In Stock</Label>
-            <Select name="inStock" id="inStock">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+            <Select
+              name="inStock"
+              id="inStock"
+              value={updatedProduct.inStock}
+              onChange={handleChange}
+            >
+              <option value={true}>Yes</option>
+              <option value={false}>No</option>
             </Select>
           </ProductFormLeft>
           <ProductFormRight>
@@ -170,13 +232,7 @@ const Product = () => {
               </Label>
               <Input type="file" id="file" style={{ display: "none" }} />
             </ProductUpload>
-            <ProductButton
-              onClick={() => {
-                handleEdit(product._id, product);
-              }}
-            >
-              Update
-            </ProductButton>
+            <ProductButton type="submit">Update</ProductButton>
           </ProductFormRight>
         </ProductForm>
       </ProductBottom>

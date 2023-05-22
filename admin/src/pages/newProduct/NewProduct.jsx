@@ -7,6 +7,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import Swal from "sweetalert2";
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
@@ -123,10 +124,24 @@ const NewProduct = () => {
               size: size,
               color: color,
             };
-            addProduct(product, dispatch);
-            navigate("/products");
+            addProduct(product, dispatch)
+              .then(() => {
+                Swal.fire({
+                  icon: "success",
+                  title: "Product Added",
+                  text: "Product has been added successfully!",
+                });
+                navigate("/products");
+              })
+              .catch((error) => {
+                Swal.fire({
+                  icon: "error",
+                  title: "Add Product Failed",
+                  text: "Failed to add the product.",
+                });
+                console.error(error);
+              });
           })
-
           .catch((error) => {
             console.error(error);
           });

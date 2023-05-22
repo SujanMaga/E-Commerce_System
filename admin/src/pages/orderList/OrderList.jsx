@@ -5,11 +5,24 @@ import { Delete } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOrder, getOrders, updateOrder } from "../../redux/apiCalls";
 import { Select, MenuItem } from "@material-ui/core";
+import Swal from "sweetalert2";
+
 const Container = styled.div`
   flex: 4;
   padding-left: 10px;
 `;
 
+const ProductListImage = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+`;
+const ProductListItem = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const OrderList = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order.orders);
@@ -19,12 +32,40 @@ const OrderList = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    // setData(data.filter((item) => item.id !== id));
     deleteOrder(id, dispatch);
   };
-  const handleEdit = (id, updatedOrder) => {
-    updateOrder(id, updatedOrder, dispatch).then(() => {
-      getOrders(dispatch);
+
+  const handleEdit = (id) => {
+    Swal.fire({
+      title: "Update Order Status",
+      text: "Select the new status for this order:",
+      input: "select",
+      inputOptions: {
+        pending: "Pending",
+        delivered: "Delivered",
+      },
+      inputPlaceholder: "Select a status",
+      showCancelButton: true,
+      confirmButtonText: "Update",
+      showLoaderOnConfirm: true,
+      preConfirm: (selectedStatus) => {
+        return updateOrder(id, { status: selectedStatus }, dispatch);
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedStatus = result.value;
+        const message =
+          selectedStatus === "delivered"
+            ? "Order delivered successfully."
+            : "Order status updated successfully.";
+        Swal.fire({
+          title: "Success",
+          text: message,
+          icon: "success",
+        }).then(() => {
+          getOrders(dispatch);
+        });
+      }
     });
   };
 
@@ -34,6 +75,23 @@ const OrderList = () => {
       field: "userId",
       headerName: "User_ID",
       width: 230,
+    },
+    {
+      field: "products",
+      headerName: "Product",
+      width: 230,
+      renderCell: (params) => {
+        return (
+          <div>
+            {params.row.products.map((product, index) => (
+              <ProductListItem key={index}>
+                <ProductListImage src={product.img} alt="product" />
+                {product.title}
+              </ProductListItem>
+            ))}
+          </div>
+        );
+      },
     },
     {
       field: "address.city",
@@ -46,7 +104,6 @@ const OrderList = () => {
       headerName: "Amount",
       width: 160,
     },
-
     {
       field: "status",
       headerName: "Status",
@@ -70,7 +127,6 @@ const OrderList = () => {
         );
       },
     },
-
     {
       field: "action",
       headerName: "Action",
@@ -80,9 +136,6 @@ const OrderList = () => {
           <>
             <Delete
               style={{
-                // display: "flex",
-                // justifyContent: "center",
-                // alignItems: "center",
                 color: "red",
                 cursor: "pointer",
               }}

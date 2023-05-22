@@ -64,16 +64,6 @@ const UserList = () => {
     },
     { field: "email", headerName: "Email", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
-    {
-      field: "transaction",
-      headerName: "Transaction",
-      width: 160,
-    },
-    {
       field: "action",
       headerName: "Action",
       width: 150,
@@ -105,7 +95,6 @@ const UserList = () => {
         disableSelectionOnClick
         //unique identifier for each row
         getRowId={(row) => row._id}
-        // rowsPerPageOptions={[5]}
         checkboxSelection
       />
     </Container>

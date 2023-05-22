@@ -6,7 +6,6 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  AttachMoney,
   BarChart,
   MailOutline,
   DynamicFeed,

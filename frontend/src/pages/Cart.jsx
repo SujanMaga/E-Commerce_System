@@ -1,5 +1,6 @@
-import { Add, Remove } from "@material-ui/icons";
+import { Cancel } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
@@ -7,8 +8,9 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { userRequest } from "../requestMethods";
-import { Link } from "react-router-dom";
+import { deleteProduct } from "../redux/cartRedux";
 import { getOrderById } from "../redux/apiCalls";
+
 const PublicKey =
   "pk_test_51N1Bo5An34WkQpYJGn74htIwaAOKPp2zSobKFwshyG6swnpgC4pxmGaaXwBYsptaJPskNXKJ6SgcAfGSTYsHYb8z00o47lmwC1";
 
@@ -138,13 +140,28 @@ const Button = styled.button`
 const Cart = () => {
   // for order
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.currentUser._id);
-  console.log(userId);
+  const userId = useSelector((state) => state.user.currentUser?._id);
+  // console.log(userId);
   const handleClick = (e) => {
     e.preventDefault();
+    if (!userId) {
+      Swal.fire({
+        title: "Login Required",
+        text: "You need to log in to view order",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      // You can navigate to the login page or perform any other action here
+      return;
+    }
     getOrderById(dispatch, userId);
     navigate("/orders");
   };
+
+  const handleCancel = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
+
   // for cart
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
@@ -172,6 +189,7 @@ const Cart = () => {
     setStripeToken(token);
   };
   // console.log(stripeToken);
+
   return (
     <Container>
       <Navbar />
@@ -210,14 +228,19 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
                   </ProductAmountContainer>
                   <ProductPrice>
                     ${product.price * product.quantity}
                   </ProductPrice>
                 </PriceDetail>
+
+                <Cancel
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleCancel(product._id)}
+                >
+                  {" "}
+                </Cancel>
               </Product>
             ))}
             <Hr />
